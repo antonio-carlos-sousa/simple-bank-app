@@ -1,26 +1,36 @@
 import React, { useState } from 'react'
+import { Route, Switch, Redirect } from 'react-router'
+
+import AuthLoginPage from './Auth'
 
 //import PropTypes from 'prop-types'
 
 function App () {
 
-  const [state, setState] = useState(false)
+  let availableRoutes = (
+    <Switch>
+      <Route path="/signup" component={AuthLoginPage} exact/>
+      <Redirect to="/signup"/>
+    </Switch>
+  )
 
-  let _class = `skin-blue fixed sidebar-mini`
-
-  const buttonHandler = () => {
-    setState(prevState => ({ state: !prevState }))
-  }
-
-  if (state) {
-    _class = `login-page`
+  // change for props.isAuthenticated
+  if (false) {
+    availableRoutes = (
+      <Switch>
+        <Route path="/payments" exact/>
+        <Route path="/" exact/>
+        <Redirect to="/"/>
+      </Switch>
+    )
   }
 
   return (
-    <div className={_class} style={{ height: '100%' }}>
-      <h1>Bank App</h1>
-      <button onClick={() => buttonHandler()}>Click</button>
-    </div>
+    <React.Fragment>
+
+      {availableRoutes}
+
+    </React.Fragment>
   )
 }
 
