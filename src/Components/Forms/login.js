@@ -3,20 +3,8 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 
 import Input from './Input'
-import * as actionsTypes from '../../Store/Actions/Types'
 
-const loginForm = ({ dispatchLogin }) => {
-
-  const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values)
-    console.log(setSubmitting)
-
-    /** login request */
-    let token = 'ABC123'
-    localStorage.setItem('token', token)
-
-    dispatchLogin({ type: actionsTypes.AUTH_SUCCESS, payload: { token } })
-  }
+const loginForm = ({ submitHandler }) => {
 
   const schema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -28,9 +16,9 @@ const loginForm = ({ dispatchLogin }) => {
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={schema}
-        onSubmit={(values, { setSubmitting }) => handleSubmit(values, { setSubmitting })}>
+        onSubmit={(values) => submitHandler(values)}>
 
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
 
           <form onSubmit={handleSubmit}>
 

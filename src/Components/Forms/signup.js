@@ -1,32 +1,17 @@
 import React from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import axios from 'axios'
 
-import { openUriBankApi } from '../../Config/appSettings'
 import Input from './Input'
 
-const signupForm = () => {
-
-  const handleSubmit = ({ name, email, password }) => {
-    const user = { nome: name, email, password }
-
-    axios.post(openUriBankApi, user).then(
-      response => {
-        console.log(response)
-      }
-    ).catch(errors => console.log(errors))
-  }
+const signupForm = ({ submitHandler }) => {
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    email: Yup.string()
-      .email('Invalid email')
-      .required('Email is required'),
-    password: Yup.string()
-      .matches(
-        /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,12})/,
-        'Password deve conter: letra maiúscula, letra minúscula, número e caracter especial')
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    password: Yup.string().matches(
+      /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,12})/,
+      'Password deve conter: letra maiúscula, letra minúscula, número e caracter especial')
       .required('Password is Required'),
     passwordConfirm: Yup.string()
       .oneOf([Yup.ref('password'), null], 'Passwords don\'t match')
@@ -38,9 +23,9 @@ const signupForm = () => {
       <Formik
         initialValues={{ name: '', email: '', password: '', passwordConfirm: '' }}
         validationSchema={schema}
-        onSubmit={(values) => handleSubmit(values)}>
+        onSubmit={(values) => submitHandler(values)}>
 
-        {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
 
           <form onSubmit={handleSubmit}>
 

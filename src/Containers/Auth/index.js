@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
+import axios from 'axios'
 
+import { openUriBankApi } from '../../Config/settings'
 import { useAuthStateValue } from '../../Store/Provider/auth'
 
 import LoginForm from '../../Components/Forms/login'
 import SignupForm from '../../Components/Forms/signup'
 
-const AuthLoginPage = () => {
+import * as actionsTypes from '../../Store/Actions/Types'
 
-  let anchorText = 'Já tem conta? Entre aqui!'
-  let content = <SignupForm/>
+const AuthLoginPage = () => {
 
   const [page, setPage] = useState(false)
   const [{ isAuth }, dispatch] = useAuthStateValue()
@@ -21,9 +22,38 @@ const AuthLoginPage = () => {
     })
   }
 
+  const submitHandler = ({ name, email, password, passwordConfirm }) => {
+    let user = { name, email, password }
+    let uri = `${openUriBankApi}/login`
+
+    if (passwordConfirm) {
+      user = { ...user, confirm_password: passwordConfirm }
+      uri = `${openUriBankApi}/signup`
+    }
+
+    axios.post(uri, user).then(
+      response => {
+        if (response.status === 200) {
+
+          const payload = {
+            name: response.data.name,
+            email: response.data.email,
+            token: response.data.token
+          }
+
+          localStorage.setItem('data', JSON.stringify(payload))
+          dispatch({ type: actionsTypes.AUTH_SUCCESS, payload })
+        }
+      }
+    ).catch(errors => console.log(errors))
+  }
+
+  let anchorText = 'Já tem conta? Entre aqui!'
+  let content = <SignupForm submitHandler={submitHandler}/>
+
   if (page) {
     anchorText = 'Novo utilizador? Registe-se aqui!'
-    content = <LoginForm dispatchLogin={dispatch}/>
+    content = <LoginForm submitHandler={submitHandler}/>
   }
 
   if (isAuth) {

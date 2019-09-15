@@ -13,12 +13,17 @@ function Index () {
 
   useEffect(() => {
 
-    const token = localStorage.getItem('token')
+    const data = JSON.parse(localStorage.getItem('data'))
 
-    console.log(process.env.NODE_ENV)
-
-    if (token) {
-      dispatch({ type: actionsTypes.AUTH_SUCCESS, payload: { token } })
+    if (data) {
+      dispatch({
+        type: actionsTypes.AUTH_SUCCESS,
+        payload: {
+          name: data.name,
+          email: data.email,
+          token: data.token
+        }
+      })
     }
 
   }, [dispatch])
