@@ -1,11 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router'
 
+import { useAuthStateValue } from '../Store/Provider/auth'
 import AuthLoginPage from './Auth'
+import * as actionsTypes from '../Store/Actions/Types'
 
 //import PropTypes from 'prop-types'
 
-function App () {
+function Index () {
+
+  const [{ isAuth }, dispatch] = useAuthStateValue()
+
+  useEffect(() => {
+
+    const token = localStorage.getItem('token')
+
+    console.log(process.env.NODE_ENV)
+
+    if (token) {
+      dispatch({ type: actionsTypes.AUTH_SUCCESS, payload: { token } })
+    }
+
+  }, [dispatch])
 
   let availableRoutes = (
     <Switch>
@@ -15,7 +31,7 @@ function App () {
   )
 
   // change for props.isAuthenticated
-  if (false) {
+  if (isAuth) {
     availableRoutes = (
       <Switch>
         <Route path="/payments" exact/>
@@ -34,4 +50,4 @@ function App () {
   )
 }
 
-export default App
+export default Index

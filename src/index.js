@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './Assets/Styles/index.css'
-import App from './Containers/App'
+import Index from './Containers'
 import * as serviceWorker from './serviceWorker'
 
 import { BrowserRouter } from 'react-router-dom'
+import AuthProvider from './Store/Provider/auth'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'admin-lte/dist/css/AdminLTE.min.css'
@@ -12,7 +13,9 @@ import 'admin-lte/dist/css/skins/_all-skins.min.css'
 
 const app = (
   <BrowserRouter>
-    <App/>
+    <AuthProvider>
+      <Index/>
+    </AuthProvider>
   </BrowserRouter>
 )
 
