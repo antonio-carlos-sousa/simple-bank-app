@@ -5,9 +5,12 @@ import { useAuthStateValue } from '../Store/Provider/auth'
 import AuthLoginPage from './Auth'
 import * as actionsTypes from '../Store/Actions/Types'
 
+import Layout from './Layout';
+import Dashboard from '../Components/Dashboard'
+
 //import PropTypes from 'prop-types'
 
-function Index () {
+function Index() {
 
   const [{ isAuth }, dispatch] = useAuthStateValue()
 
@@ -28,28 +31,30 @@ function Index () {
 
   }, [dispatch])
 
-  let availableRoutes = (
+  let content = (
     <Switch>
-      <Route path="/signup" component={AuthLoginPage} exact/>
-      <Redirect to="/signup"/>
+      <Route path="/signup" component={AuthLoginPage} exact />
+      <Redirect to="/signup" />
     </Switch>
   )
 
   // change for props.isAuthenticated
   if (isAuth) {
-    availableRoutes = (
-      <Switch>
-        <Route path="/payments" exact/>
-        <Route path="/" exact/>
-        <Redirect to="/"/>
-      </Switch>
+    content = (
+      <Layout>
+        <Switch>
+          <Route path="/dashboard" component={Dashboard} exact />
+          <Route path="/" component={Dashboard} exact />
+          <Redirect to="/" />
+        </Switch>
+      </Layout>
     )
   }
 
   return (
     <React.Fragment>
 
-      {availableRoutes}
+      {content}
 
     </React.Fragment>
   )

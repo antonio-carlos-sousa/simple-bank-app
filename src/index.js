@@ -11,6 +11,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'admin-lte/dist/css/AdminLTE.min.css'
 import 'admin-lte/dist/css/skins/_all-skins.min.css'
 
+/**
+ * admin-lte/plugins/jQuery/jquery-2.2.3.min.js",
+      "node_modules/admin-lte/bootstrap/js/bootstrap.min.js",
+      "node_modules/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js",
+      "node_modules/admin-lte/dist/js/app.min.js"
+ */
+
 const app = (
   <BrowserRouter>
     <AuthProvider>
