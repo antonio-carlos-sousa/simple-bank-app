@@ -13,16 +13,10 @@ const Sidebar = () => {
                             <i className="fa fa-dashboard"></i> Dashboard
                         </Link>
                     </li>
-                    <li className="treeview">
-                        <a>
-                            <i className="fa fa-edit"></i> <span>Registos</span>
-                            <i className="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul className="treeview-menu">
-                            <li>
-                                <a ui-sref="billingCycle"><i className="fa fa-euro"></i> Pagamentos</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <Link to="/payments">
+                            <i className="fa fa-euro"></i> Pagamentos
+                        </Link>
                     </li>
                 </ul>
             </section>

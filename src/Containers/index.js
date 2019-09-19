@@ -3,12 +3,11 @@ import { Route, Switch, Redirect } from 'react-router'
 
 import { useAuthStateValue } from '../Store/Provider/auth'
 import AuthLoginPage from './Auth'
-import * as actionsTypes from '../Store/Actions/Types'
 
 import Layout from './Layout';
 import Dashboard from '../Components/Dashboard'
 
-//import PropTypes from 'prop-types'
+import * as actionsTypes from '../Store/Actions/Types'
 
 function Index() {
 
