@@ -49,10 +49,10 @@ const AuthLoginPage = () => {
           dispatch({ type: actionsTypes.AUTH_SUCCESS, payload })
         }
       }
-    ).catch(errors => {
+    ).catch(error => {
       setLoading(false)
       // TODO: tratamento de erros
-      console.log(errors)
+      console.log(error.response)
     })
   }
 

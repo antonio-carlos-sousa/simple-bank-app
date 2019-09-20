@@ -15,7 +15,7 @@ import 'admin-lte/dist/css/skins/_all-skins.min.css'
 const app = (
   <BrowserRouter>
     <AuthProvider>
-      <Index />
+      <Index/>
     </AuthProvider>
   </BrowserRouter>
 )

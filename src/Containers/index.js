@@ -4,12 +4,12 @@ import { Route, Switch, Redirect } from 'react-router'
 import { useAuthStateValue } from '../Store/Provider/auth'
 import AuthLoginPage from './Auth'
 
-import Layout from './Layout';
+import Layout from './Layout'
 import Dashboard from '../Components/Dashboard'
 
 import * as actionsTypes from '../Store/Actions/Types'
 
-function Index() {
+function Index () {
 
   const [{ isAuth }, dispatch] = useAuthStateValue()
 
@@ -32,19 +32,18 @@ function Index() {
 
   let content = (
     <Switch>
-      <Route path="/signup" component={AuthLoginPage} exact />
-      <Redirect to="/signup" />
+      <Route path="/signup" component={AuthLoginPage} exact/>
+      <Redirect to="/signup"/>
     </Switch>
   )
 
-  // change for props.isAuthenticated
   if (isAuth) {
     content = (
       <Layout>
         <Switch>
-          <Route path="/dashboard" component={Dashboard} exact />
-          <Route path="/" component={Dashboard} exact />
-          <Redirect to="/" />
+          <Route path="/dashboard" component={Dashboard} exact/>
+          <Route path="/" component={Dashboard} exact/>
+          <Redirect to="/"/>
         </Switch>
       </Layout>
     )
