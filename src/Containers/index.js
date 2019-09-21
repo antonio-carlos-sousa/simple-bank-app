@@ -6,6 +6,7 @@ import AuthLoginPage from './Auth'
 
 import Layout from './Layout'
 import Dashboard from '../Components/Dashboard'
+import Payments from '../Components/Payments'
 
 import * as actionsTypes from '../Store/Actions/Types'
 
@@ -42,6 +43,7 @@ function Index () {
       <Layout>
         <Switch>
           <Route path="/dashboard" component={Dashboard} exact/>
+          <Route path="/payments" component={Payments} exact/>
           <Route path="/" component={Dashboard} exact/>
           <Redirect to="/"/>
         </Switch>
