@@ -28,7 +28,7 @@ const Payments = () => {
     </section>
   )
 
-  if (!loading) {
+  if (loading) {
     content = <Spinner style={{ marginTop: '20%' }}/>
   }
 
